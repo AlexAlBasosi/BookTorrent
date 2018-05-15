@@ -1,4 +1,6 @@
 var cloudantConnection = require('../models/models');
+var fs = require('fs');
+var request = require('request');
 
 var db;
 var cloudant;
@@ -38,20 +40,52 @@ function initDBConnection() {
 
 initDBConnection();
 
-exports.get_document = function(req, res){
-    var id = req.params.documentID;
+exports.get_all_books = function(req, res){
 
-    db.get(id, function(err, data){
-        res.send(data);
-    });
+    db.list({include_docs:true}, function (err, data) {
+
+        if(err){
+            res.send(err);
+        }else{
+            res.send(data.rows);
+        }
+    }); 
 };
 
-exports.insert_document = function(req, res){
-    var name = req.query.name;
+exports.get_book = function(req, res){
+
+    // request({
+    //     uri: "https://ffdbafdd-6cf1-450a-8567-3d001def235e-bluemix.cloudant.com/index/4563293/IBMCloudServices.pdf",
+    //     method: "GET",
+    //     timeout: 10000,
+    //     followRedirect: true,
+    //     maxRedirects: 10
+    //   }, function(error, response, body) {
+    //     res.send(body);
+    //   });
+
+    // var id = req.params.bookID;
+
+    // db.get(id, function(err, data){
+    //     if(err){
+    //         res.send(err);
+    //     }else{
+    //         res.send(data._attachments.IBMCloudServices);
+    //     }
+    // });
+
+
+};
+
+exports.insert_book = function(req, res){
+
     var id = req.query.id;
+    var author = req.query.author;
+    var title = req.query.title;
 
     db.insert({
-        name: name,
+        author: author,
+        title: title,
     }, id, function(err, doc){
         if(err){
             console.log(err);

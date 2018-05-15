@@ -1,9 +1,12 @@
 module.exports = function(app) {
-    var documentcontroller = require('../controllers/documentcontroller');
-
-    app.route('/document')
-        .post(documentcontroller.insert_document)
+    var bookcontroller = require('../controllers/bookcontroller');
     
-    app.route('/document/:documentID')
-        .get(documentcontroller.get_document)
+    app.route('/books')
+        .get(bookcontroller.get_all_books)
+
+    app.route('/book/:bookID')
+        .get(bookcontroller.get_book)
+
+    app.route('/book')
+        .post(bookcontroller.insert_book)
 };

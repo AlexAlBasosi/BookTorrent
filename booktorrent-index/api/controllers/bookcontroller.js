@@ -1,4 +1,5 @@
 var cloudantConnection = require('../models/models');
+var request = require('request');
 
 var db;
 var cloudant;
@@ -38,26 +39,19 @@ function initDBConnection() {
 
 initDBConnection();
 
-exports.get_document = function(req, res){
-    var id = req.params.documentID;
-
-    db.get(id, function(err, data){
-        res.send(data);
-    });
-};
-
-exports.insert_document = function(req, res){
-    var name = req.query.name;
-    var id = req.query.id;
-
-    db.insert({
-        name: name,
-    }, id, function(err, doc){
-        if(err){
-            console.log(err);
-            res.sendStatus(500);
-        } else {
-            res.sendStatus(200);
+exports.get_books = function(req, res){
+    
+    request({
+        uri: "http://booktorrent-server-1.mybluemix.net/books",
+        method: "GET",
+        timeout: 10000,
+        followRedirect: true,
+        maxRedirects: 10
+      }, function(error, response, body) {
+        if(error){
+            res.send(error);
+        }else{
+            res.send(body);
         }
-    });
+      });
 };

@@ -9,7 +9,9 @@
 		"cfenv": "1.0.x",
 		"cloudant": "^1.10.0-NOTICE",
 		"express": "4.15.x",
-		"nodemon": "^1.17.3"
+		"http": "0.0.0",
+		"nodemon": "^1.17.3",
+		"request": "^2.86.0"
 	},
 	"repository": {},
 	"engines": {

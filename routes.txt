@@ -1,0 +1,4 @@
+bookster-index:
+post: http://booktorrent-index.mybluemix.net/document?id=3453293&name=Alexander+Al+Basosi
+
+get: http://booktorrent-index.mybluemix.net/document/3453293
