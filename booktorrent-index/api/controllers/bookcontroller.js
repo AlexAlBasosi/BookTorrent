@@ -55,3 +55,20 @@ exports.get_books = function(req, res){
         }
       });
 };
+
+exports.get_account_number = function(req, res){
+    var id = req.params.id;
+
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+    res.header('Access-Control-Allow-Credentials', true); // If needed
+
+    if(id === "1"){
+        res.send("ffdbafdd-6cf1-450a-8567-3d001def235e");
+    } else if(id === "2"){
+        res.send("73797990-0575-4320-b4d9-f37cedb6eb92");
+    } else if(id === "3"){
+        res.send("93c96188-9392-40fb-b9af-1813b74fb972");
+    }
+};

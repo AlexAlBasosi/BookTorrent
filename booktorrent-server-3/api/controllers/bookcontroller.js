@@ -42,12 +42,38 @@ initDBConnection();
 
 exports.get_all_books = function(req, res){
 
+    var bookArr = [];
+
     db.list({include_docs:true}, function (err, data) {
 
         if(err){
             res.send(err);
         }else{
-            res.send(data.rows);
+            for(i in data.rows){
+
+                var id = data.rows[i].doc._id;
+                var author = data.rows[i].doc.author;
+                var title = data.rows[i].doc.title;
+                var attachment = Object.keys(data.rows[i].doc._attachments);
+
+
+                var json = {
+                    "id": id,
+                    "author": author,
+                    "title": title,
+                    "server": 3,
+                    "keys": attachment[0]
+                }
+
+                bookArr.push(json);  
+            }
+
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+            res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+            res.header('Access-Control-Allow-Credentials', true); // If needed
+    
+            res.send(bookArr);
         }
     }); 
 };
